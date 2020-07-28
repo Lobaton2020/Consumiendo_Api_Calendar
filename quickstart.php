@@ -36,8 +36,8 @@ function getClient()
         } else {
             // Request authorization from the user.
             $authUrl = $client->createAuthUrl();
-            printf("Open the following link in your browser:\n%s\n", $authUrl);
-            print 'Enter verification code: ';
+            // printf("Open the following link in your browser:\n%s\n", $authUrl);
+            // print 'Enter verification code: ';
             $authCode = "4/2QF-rXH8gjW_H5HhPrCRqF8LHbImhKMByQ62K2k2LafqHF0f8XbHoSiWtkqN9l9WD3w4HlxQY-arcNWxyp39GO8";
 
             // Exchange authorization code for an access token.
@@ -60,6 +60,7 @@ function getClient()
 
 // Get the API client and construct the service object.
 $client = getClient();
+echo "Ok";
 $service = new Google_Service_Calendar($client);
 // Print the next 10 events on the user's calendar.
 $calendarId = 'primary';
