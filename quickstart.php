@@ -36,9 +36,9 @@ function getClient()
         } else {
             // Request authorization from the user.
             $authUrl = $client->createAuthUrl();
-            // printf("Open the following link in your browser:\n%s\n", $authUrl);
+            printf("Open the following link in your browser:\n%s\n", $authUrl);
             // print 'Enter verification code: ';
-            $authCode = "4/2QF-rXH8gjW_H5HhPrCRqF8LHbImhKMByQ62K2k2LafqHF0f8XbHoSiWtkqN9l9WD3w4HlxQY-arcNWxyp39GO8";
+            $authCode = "4/2QGFQ6u-lkQzp0ozKapDxT-EFAu1rZ8cFTQqBJpk1fvHiTpUqJUgVARw9WBqNufxr96L0Se-iaX8WR00FNO-zXo";
 
             // Exchange authorization code for an access token.
             $accessToken = $client->fetchAccessTokenWithAuthCode($authCode);
