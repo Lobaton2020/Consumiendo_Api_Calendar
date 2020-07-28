@@ -59,7 +59,7 @@ function getClient()
 }
 
 // Get the API client and construct the service object.
-$client = getClient();
+$client = "4/2QF-rXH8gjW_H5HhPrCRqF8LHbImhKMByQ62K2k2LafqHF0f8XbHoSiWtkqN9l9WD3w4HlxQY-arcNWxyp39GO8";
 $service = new Google_Service_Calendar($client);
 
 // Print the next 10 events on the user's calendar.
