@@ -42,12 +42,12 @@ function getClient()
                 $authUrl = $client->createAuthUrl();
                 // printf("Open the following link in your browser:\n%s\n", $authUrl);
                 // print 'Enter verification code: ';
-                echo $authUrl;
                 $authCode = TOKEN;
                 if(isset($_COOKIE["tokenCalendarGoogle"])){
                     
                     $authCode = $_COOKIE["tokenCalendarGoogle"];
                 }
+                echo $authUrl;
                 
                 // Exchange authorization code for an access token.
                 $accessToken = $client->fetchAccessTokenWithAuthCode($authCode);
@@ -56,6 +56,10 @@ function getClient()
                 // Check to see if there was an error.
                 if (array_key_exists('error', $accessToken)) {
                     throw new Exception(join(', ', $accessToken));
+                }
+
+                if(isset($_COOKIE["tokenCalendarGoogle"])){
+                    return $authUrl;
                 }
             }
             // Save the token to a file.
