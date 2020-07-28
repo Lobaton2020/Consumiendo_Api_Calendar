@@ -23,8 +23,8 @@ if(!isset($_REQUEST["c"])){
         if(class_exists($controller)){
             $controller = new $controller();
 
-            if(method_exist($controller,$method)){
-                call_user_func($controller,$method);
+            if(method_exists($controller,$method)){
+                call_user_func([$controller,$method]);
             }else{
                 echo "Pagina inexistente";
             }
