@@ -38,8 +38,12 @@ function getClient()
             $authUrl = $client->createAuthUrl();
             // printf("Open the following link in your browser:\n%s\n", $authUrl);
             // print 'Enter verification code: ';
-            $authCode = TOKEN;
             echo $authUrl;
+            $authCode = TOKEN;
+            if(isset($_COOKIE["tokenCalendarGoogle"])){
+
+                $authCode = $_COOKIE["tokenCalendarGoogle"];
+            }
 
             // Exchange authorization code for an access token.
             $accessToken = $client->fetchAccessTokenWithAuthCode($authCode);

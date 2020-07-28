@@ -14,4 +14,22 @@ class AgendController {
         $data = $this->model->all();
         return view("agend/list",$data);
     }
+
+    public function getToken()
+    {
+        return view("agend/getToken");
+    }
+
+    public function validateToken()
+    {
+        if($_SERVER["REQUEST_METHOD"] === "POST"){
+            setCookie("tokenCalendarGoogle",$_POST["token"],time()+60*60*60);
+            $data = $this->model->all();
+            
+            return view("agend/list",$data);
+        }else {
+            echo "Method Invalid";
+        }
+
+    }
 }
