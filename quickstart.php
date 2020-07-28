@@ -36,6 +36,7 @@ function getClient()
         } else {
             // Request authorization from the user.
             $authUrl = $client->createAuthUrl();
+            return $authUrl;
             // printf("Open the following link in your browser:\n%s\n", $authUrl);
             // print 'Enter verification code: ';
             $authCode = TOKEN;
