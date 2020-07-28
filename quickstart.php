@@ -57,7 +57,8 @@ function getClient()
     }
     return $client;
 }
-
+var_dump(getClient());
+exit;
 // Get the API client and construct the service object.
 $client = getClient();
 
