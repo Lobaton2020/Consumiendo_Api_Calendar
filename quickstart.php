@@ -47,7 +47,6 @@ function getClient()
                     
                     $authCode = $_COOKIE["tokenCalendarGoogle"];
                 }
-                echo $authUrl;
                 
                 // Exchange authorization code for an access token.
                 $accessToken = $client->fetchAccessTokenWithAuthCode($authCode);
