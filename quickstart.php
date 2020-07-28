@@ -73,5 +73,4 @@ $optParams = array(
 $results = $service->events->listEvents($calendarId, $optParams);
 $events = $results->getItems();
 
-var_dump($events);
-}
+exit(var_dump($events));
