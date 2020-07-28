@@ -57,8 +57,7 @@ function getClient()
     }
     return $client;
 }
-var_dump(getClient());
-exit;
+
 // Get the API client and construct the service object.
 $client = getClient();
 
@@ -74,15 +73,5 @@ $optParams = array(
 $results = $service->events->listEvents($calendarId, $optParams);
 $events = $results->getItems();
 
-if (empty($events)) {
-    print "No upcoming events found.\n";
-} else {
-    print "Upcoming events:\n";
-    foreach ($events as $event) {
-        $start = $event->start->dateTime;
-        if (empty($start)) {
-            $start = $event->start->date;
-        }
-        printf("%s (%s)\n", $event->getSummary(), $start);
-    }
+exit(var_dump($events));
 }
