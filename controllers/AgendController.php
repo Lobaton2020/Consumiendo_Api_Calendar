@@ -12,12 +12,18 @@ class AgendController {
     public function index()
     {
         $data = $this->model->all();
+        // $data = [];
         return view("agend/list",$data);
     }
 
     public function getToken()
     {
         return view("agend/getToken");
+    }
+
+    public function create()
+    {
+        return view("agend/create");
     }
 
     public function validateToken()
@@ -27,6 +33,17 @@ class AgendController {
             $data = $this->model->all();
             
             return view("agend/list",$data);
+        }else {
+            echo "Method Invalid";
+        }
+
+    }
+
+    public function save()
+    {
+        if($_SERVER["REQUEST_METHOD"] === "POST"){
+            var_dump($_POST);
+            echo "Guardar evento";
         }else {
             echo "Method Invalid";
         }
