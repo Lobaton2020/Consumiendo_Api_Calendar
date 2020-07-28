@@ -59,7 +59,7 @@ function getClient()
                 }
 
                 if(isset($_COOKIE["tokenCalendarGoogle"])){
-                                        return $authUrl;
+                                        // return $authUrl;
                 }
             }
             // Save the token to a file.
