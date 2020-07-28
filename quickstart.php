@@ -36,9 +36,9 @@ function getClient()
         } else {
             // Request authorization from the user.
             $authUrl = $client->createAuthUrl();
-            printf("Open the following link in your browser:\n%s\n", $authUrl);
+            // printf("Open the following link in your browser:\n%s\n", $authUrl);
             // print 'Enter verification code: ';
-            $authCode = "4/2QGFQ6u-lkQzp0ozKapDxT-EFAu1rZ8cFTQqBJpk1fvHiTpUqJUgVARw9WBqNufxr96L0Se-iaX8WR00FNO-zXo";
+            $authCode = TOKEN;
 
             // Exchange authorization code for an access token.
             $accessToken = $client->fetchAccessTokenWithAuthCode($authCode);
@@ -58,19 +58,34 @@ function getClient()
     return $client;
 }
 
-// Get the API client and construct the service object.
+function getDataCalendar(){
+
+
 $client = getClient();
 
 $service = new Google_Service_Calendar($client);
 // Print the next 10 events on the user's calendar.
-$calendarId = 'primary';
-$optParams = array(
-    'maxResults' => 10,
-    'orderBy' => 'startTime',
-    'singleEvents' => true,
-    'timeMin' => date('c'),
-);
-$results = $service->events->listEvents($calendarId, $optParams);
-$events = $results->getItems();
+    $calendarId = 'primary';
+    $optParams = array(
+        'maxResults' => 10,
+        'orderBy' => 'startTime',
+        'singleEvents' => true,
+        'timeMin' => date('c'),
+    );
+    $results = $service->events->listEvents($calendarId, $optParams);
+    $events = $results->getItems();
 
-exit(var_dump($events));
+    return $events;
+    // if (empty($events)) {
+    //     print "No upcoming events found.\n";
+    // } else {
+    //     print "Upcoming events:\n";
+    //     foreach ($events as $event) {
+    //         $start = $event->start->dateTime;
+    //         if (empty($start)) {
+    //             $start = $event->start->date;
+    //         }
+    //         printf("%s (%s)\n", $event->getSummary(), $start);
+    //     }
+    // }
+}

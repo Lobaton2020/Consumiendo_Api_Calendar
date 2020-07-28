@@ -1,4 +1,9 @@
+
 <?php
+require_once "helpers/helperController.php";
+require_once "config/config.php";
+
+
 $controller = "Agend";
 $method = "index";
 
