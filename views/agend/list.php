@@ -3,13 +3,12 @@
 <h1 class="text-center">Listado de agendas </h1>
 
 <?php if (isset($data[0]["url"])) {
-    $data = [];
-    $url = $data["url"];
+    unset($data[0]["url"]);
+    $url = $data[0]["url"];
 }
 if (isset($data[1])) {
-
     if (is_string($data[1])) {
-        $error = $data;
+        $error = $data[1];
         $data = [];
     }
 }
