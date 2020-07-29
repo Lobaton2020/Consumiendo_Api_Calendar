@@ -115,7 +115,7 @@ function addEventCalendar($datos)
 
         $calendarId = 'primary';
         $event = $service->events->insert($calendarId, $event);
-        return $event->htmlLin;
+        return $event->htmlLink;
     } catch (Exception $e) {
         return "Error: " . $e->getMessage();
     }
