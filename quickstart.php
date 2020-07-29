@@ -12,11 +12,15 @@ if (isset($_GET["code"])) {
  * Returns an authorized API client.
  * @return Google_Client the authorized client object
  */
-function getClient()
+function getClient($type = "get")
 {
     $client = new Google_Client();
     $client->setApplicationName('Google Calendar API PHP Quickstart');
-    $client->setScopes(Google_Service_Calendar::CALENDAR_READONLY);
+    if ($type == "get") {
+        $client->setScopes(Google_Service_Calendar::CALENDAR_READONLY);
+    } else {
+        $client->setScopes(Google_Service_Calendar::CALENDAR);
+    }
     $client->setAuthConfig(__DIR__ . '/credentials.json');
     $client->setAccessType('offline');
     $client->setPrompt('select_account consent');
@@ -90,7 +94,7 @@ function getDataCalendar()
 
 function addEventCalendar($datos)
 {
-    $client = getClient();
+    $client = getClient("save");
     $service = new Google_Service_Calendar($client);
     $event = new Google_Service_Calendar_Event(array(
         'summary' => 'Google I/O 2015',
