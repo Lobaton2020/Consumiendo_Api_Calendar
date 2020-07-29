@@ -37,7 +37,7 @@ function getClient()
             $authUrl = $client->createAuthUrl();
             // printf("Open the following link in your browser:\n%s\n", $authUrl);
             // print 'Enter verification code: ';
-            $authCode = TOKEN;
+            $authCode = "TOKEN";
             if (isset($_COOKIE["tokenCalendarGoogle"])) {
 
                 $authCode = $_COOKIE["tokenCalendarGoogle"];
@@ -69,7 +69,6 @@ function getDataCalendar()
     try {
 
         $client = getClient();
-
         $service = new Google_Service_Calendar($client);
         // Print the next 10 events on the user's calendar.
         $calendarId = 'primary';
@@ -89,22 +88,24 @@ function getDataCalendar()
     }
 }
 
-function addEventCalendar($service, $datos)
+function addEventCalendar($datos)
 {
+    $client = getClient();
+    $service = new Google_Service_Calendar($client);
     $event = new Google_Service_Calendar_Event(array(
         'summary' => 'Google I/O 2015',
         'location' => '800 Howard St., San Francisco, CA 94103',
-        'description' => 'A chance to hear more about Google\'s developer products.',
+        'description' => $datos['descripcion'],
         'start' => array(
-            'dateTime' => '2015-05-28T09:00:00-07:00',
+            'dateTime' => $datos["fechainicio"], //2015-05-28T09:00:00-07:00'
             'timeZone' => 'America/Los_Angeles',
         ),
         'end' => array(
-            'dateTime' => '2015-05-28T17:00:00-07:00',
+            'dateTime' => $datos["fechafin"],
             'timeZone' => 'America/Los_Angeles',
         ),
         'recurrence' => array(
-            'RRULE:FREQ=DAILY;COUNT=2',
+            'RRULE:FREQ=DAILY;COUNT=1',
         ),
         'attendees' => array(
             array('email' => 'lpage@example.com'),
@@ -121,5 +122,6 @@ function addEventCalendar($service, $datos)
 
     $calendarId = 'primary';
     $event = $service->events->insert($calendarId, $event);
-    printf('Event created: %s\n', $event->htmlLink);
+    return $event->htmlLin;
+
 }
