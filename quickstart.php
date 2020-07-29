@@ -81,7 +81,7 @@ function getDataCalendar()
         return $events;
 
     } catch (Exception $e) {
-        return ["url" => $client, "Error: " . $e->getMessage()];
+        return ["url" => $client, 'error' => "Error: " . $e->getMessage()];
     }
 }
 
