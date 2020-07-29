@@ -1,3 +1,3 @@
 <pre>
-<?=var_dump($data)?>
+<?php echo var_dump($data) ?>
 </pre>
