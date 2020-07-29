@@ -1,6 +1,7 @@
 <?php
 require_once "models/Agend.php";
-class AgendController {
+class AgendController
+{
 
     private $model;
 
@@ -13,7 +14,7 @@ class AgendController {
     {
         $data = $this->model->all();
         // $data = [];
-        return view("agend/list",$data);
+        return view("agend/list", $data);
     }
 
     public function getToken()
@@ -28,12 +29,12 @@ class AgendController {
 
     public function validateToken()
     {
-        if($_SERVER["REQUEST_METHOD"] === "POST"){
-            setCookie("tokenCalendarGoogle",$_POST["token"],time()+60*60*60);
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            setCookie("tokenCalendarGoogle", $_POST["token"], time() + 60 * 60 * 60);
             $data = $this->model->all();
-            
-            return view("agend/list",$data);
-        }else {
+
+            return view("agend/list", $data);
+        } else {
             echo "Method Invalid";
         }
 
@@ -41,10 +42,10 @@ class AgendController {
 
     public function save()
     {
-        if($_SERVER["REQUEST_METHOD"] === "POST"){
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
             var_dump($_POST);
             echo "Guardar evento";
-        }else {
+        } else {
             echo "Method Invalid";
         }
 

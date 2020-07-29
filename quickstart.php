@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
 
-if(isset($_GET["code"])){
+if (isset($_GET["code"])) {
     echo $_GET["code"];
 }
 // if (php_sapi_name() != 'cli') {
@@ -25,12 +25,12 @@ function getClient()
     // The file token.json stores the user's access and refresh tokens, and is
     // created automatically when the authorization flow completes for the first
     // time.
-    try{
-    $tokenPath = 'token.json';
-    if (file_exists($tokenPath)) {
-        $accessToken = json_decode(file_get_contents($tokenPath), true);
-        $client->setAccessToken($accessToken);
-    }
+    try {
+        $tokenPath = 'token.json';
+        if (file_exists($tokenPath)) {
+            $accessToken = json_decode(file_get_contents($tokenPath), true);
+            $client->setAccessToken($accessToken);
+        }
 
         // If there is no previous token or it's expired.
         if ($client->isAccessTokenExpired()) {
@@ -43,23 +43,19 @@ function getClient()
                 // printf("Open the following link in your browser:\n%s\n", $authUrl);
                 // print 'Enter verification code: ';
                 $authCode = TOKEN;
-                if(isset($_COOKIE["tokenCalendarGoogle"])){
-                    
+                if (isset($_COOKIE["tokenCalendarGoogle"])) {
+
                     $authCode = $_COOKIE["tokenCalendarGoogle"];
                 }
-                echo $authUrl;
-                
+                header("location:{$authUrl}");
+
                 // Exchange authorization code for an access token.
                 $accessToken = $client->fetchAccessTokenWithAuthCode($authCode);
                 $client->setAccessToken($accessToken);
-                
+
                 // Check to see if there was an error.
                 if (array_key_exists('error', $accessToken)) {
                     throw new Exception(join(', ', $accessToken));
-                }
-
-                if(isset($_COOKIE["tokenCalendarGoogle"])){
-                                        // return $authUrl;
                 }
             }
             // Save the token to a file.
@@ -69,17 +65,18 @@ function getClient()
             file_put_contents($tokenPath, json_encode($client->getAccessToken()));
         }
         return $client;
-    }catch(Exception $e){
-        return "Error: ".$e->getMessage();
+    } catch (Exception $e) {
+        return "Error: " . $e->getMessage();
     }
 }
 
-function getDataCalendar(){
-    
-    try{
-        
+function getDataCalendar()
+{
+
+    try {
+
         $client = getClient();
-        
+
         $service = new Google_Service_Calendar($client);
         // Print the next 10 events on the user's calendar.
         $calendarId = 'primary';
@@ -91,21 +88,10 @@ function getDataCalendar(){
         );
         $results = $service->events->listEvents($calendarId, $optParams);
         $events = $results->getItems();
-        
+
         return $events;
-        // if (empty($events)) {
-        //     print "No upcoming events found.\n";
-        // } else {
-        //     print "Upcoming events:\n";
-        // foreach ($events as $event) {
-        //     $start = $event->start->dateTime;
-        //     if (empty($start)) {
-        //         $start = $event->start->date;
-        //     }
-        //     printf("%s (%s)\n", $event->getSummary(), $start);
-        // }
-    // }
-    }catch(Exception $e){
-        return "Errot". $e->getMessage();
+
+    } catch (Exception $e) {
+        return "Error" . $e->getMessage();
     }
 }
