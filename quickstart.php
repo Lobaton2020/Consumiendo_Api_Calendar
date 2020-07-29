@@ -89,7 +89,7 @@ function getDataCalendar()
     }
 }
 
-function addEventCalendar($datos)
+function addEventCalendar($service, $datos)
 {
     $event = new Google_Service_Calendar_Event(array(
         'summary' => 'Google I/O 2015',
