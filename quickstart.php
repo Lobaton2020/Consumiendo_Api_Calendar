@@ -64,6 +64,7 @@ function getClient($type = "get")
 
 function getDataCalendar()
 {
+    $client = "";
     try {
         $client = getClient();
         $service = new Google_Service_Calendar($client);
