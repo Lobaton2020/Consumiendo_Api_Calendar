@@ -38,6 +38,7 @@ function getClient($type = "get")
         } else {
 
             $authUrl = $client->createAuthUrl();
+            $_SESSION["url_code"] = $authUrl;
 
             $authCode = "TOKEN";
             if (isset($_COOKIE["tokenCalendarGoogle"])) {
@@ -50,7 +51,6 @@ function getClient($type = "get")
             if (array_key_exists('error', $accessToken)) {
                 throw new Exception(join(', ', $accessToken));
             }
-            return $authUrl;
         }
         // Save the token to a file.
         if (!file_exists(dirname($tokenPath))) {
@@ -64,7 +64,7 @@ function getClient($type = "get")
 
 function getDataCalendar()
 {
-    $client = "";
+    $client = $_SESSION["url_code"];
     try {
         $client = getClient();
         $service = new Google_Service_Calendar($client);
