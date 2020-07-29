@@ -31,8 +31,7 @@ class AgendController
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             setCookie("tokenCalendarGoogle", $_POST["token"], time() + 60 * 60 * 60);
-            $data = $this->model->all();
-            return view("agend/list", $data);
+            return redirect("https://text-google-calendar.herokuapp.com/");
 
         } else {
             echo "Method Invalid";
@@ -43,8 +42,8 @@ class AgendController
     public function save()
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $fechainicio = $_POST["fechainicio"] . 'T' . $_POST["horainicio"] . '-05:00';
-            $fechafin = $_POST["fechafin"] . 'T' . $_POST["horafin"] . '-05:00';
+            $fechainicio = $_POST["fechainicio"] . 'T' . $_POST["horainicio"] . '-05:000Z';
+            $fechafin = $_POST["fechafin"] . 'T' . $_POST["horafin"] . '-05:000Z';
             $datos = [
                 'titulo' => $_POST["titulo"],
                 'descripcion' => $_POST["descripcion"],

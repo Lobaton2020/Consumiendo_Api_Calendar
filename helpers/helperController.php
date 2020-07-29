@@ -21,3 +21,8 @@ function showMessage($message, $type)
         unset($_SESSION[$message]);
     endif;
 }
+
+function redirect($url)
+{
+    echo "<script> window.location.href= '" . $url . "'; </script>";
+}
