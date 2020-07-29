@@ -47,10 +47,10 @@ function getClient($type = "get")
             $accessToken = $client->fetchAccessTokenWithAuthCode($authCode);
             $client->setAccessToken($accessToken);
 
-            return ["url" => $authUrl];
             if (array_key_exists('error', $accessToken)) {
                 throw new Exception(join(', ', $accessToken));
             }
+            return $authUrl;
         }
         // Save the token to a file.
         if (!file_exists(dirname($tokenPath))) {
@@ -81,7 +81,7 @@ function getDataCalendar()
         return $events;
 
     } catch (Exception $e) {
-        return "Error: " . $e->getMessage();
+        return ["url" => $client, "Error: " . $e->getMessage()];
     }
 }
 

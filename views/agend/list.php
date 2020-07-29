@@ -2,13 +2,16 @@
 <div class="container">
 <h1 class="text-center">Listado de agendas </h1>
 
-<?php if (isset($data["url"])) {
+<?php if (isset($data[0]["url"])) {
     $data = [];
     $url = $data["url"];
 }
-if (is_string($data)) {
-    $error = $data;
-    $data = [];
+if (isset($data[1])) {
+
+    if (is_string($data[1])) {
+        $error = $data;
+        $data = [];
+    }
 }
 ?>
 <?php if (isset($error)) {?>
