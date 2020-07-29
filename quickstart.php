@@ -3,7 +3,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 if (isset($_GET["code"])) {
     echo $_GET["code"];
-    header("location:https://text-google-calendar.herokuapp.com/?c=agend&m=getToken&code={$_GET["code_key"]}");
+    header("location:https://text-google-calendar.herokuapp.com/?c=agend&m=getToken&code_key={$_GET["code"]}");
 }
 
 /**
