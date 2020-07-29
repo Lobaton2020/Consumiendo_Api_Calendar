@@ -1,7 +1,7 @@
 
 <?php
 require_once "helpers/helperController.php";
-
+session_start();
 $controller = "Agend";
 $method = "index";
 

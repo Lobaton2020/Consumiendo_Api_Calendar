@@ -16,11 +16,11 @@ function getClient($type = "get")
 {
     $client = new Google_Client();
     $client->setApplicationName('Google Calendar API PHP Quickstart');
-    if ($type == "get") {
-        $client->setScopes(Google_Service_Calendar::CALENDAR_READONLY);
-    } else {
-        $client->setScopes(Google_Service_Calendar::CALENDAR);
-    }
+    $client->setScopes(Google_Service_Calendar::CALENDAR);
+    // if ($type == "get") {
+    //     $client->setScopes(Google_Service_Calendar::CALENDAR_READONLY);
+    // } else {
+    // }
     $client->setAuthConfig(__DIR__ . '/credentials.json');
     $client->setAccessType('offline');
     $client->setPrompt('select_account consent');
@@ -31,31 +31,26 @@ function getClient($type = "get")
         $client->setAccessToken($accessToken);
     }
 
-    // If there is no previous token or it's expired.
     if ($client->isAccessTokenExpired()) {
-        // Refresh the token if possible, else fetch a new one.
+
         if ($client->getRefreshToken()) {
             $client->fetchAccessTokenWithRefreshToken($client->getRefreshToken());
         } else {
-            // Request authorization from the user.
+
             $authUrl = $client->createAuthUrl();
-            // printf("Open the following link in your browser:\n%s\n", $authUrl);
-            // print 'Enter verification code: ';
+
             $authCode = "TOKEN";
             if (isset($_COOKIE["tokenCalendarGoogle"])) {
-
                 $authCode = $_COOKIE["tokenCalendarGoogle"];
             }
-            header("location:{$authUrl}");
-            // echo $authUrl;
-            // Exchange authorization code for an access token.
+
             $accessToken = $client->fetchAccessTokenWithAuthCode($authCode);
             $client->setAccessToken($accessToken);
 
-            // Check to see if there was an error.
             if (array_key_exists('error', $accessToken)) {
                 throw new Exception(join(', ', $accessToken));
             }
+            return ["url" => $authUrl];
         }
         // Save the token to a file.
         if (!file_exists(dirname($tokenPath))) {
@@ -69,9 +64,7 @@ function getClient($type = "get")
 
 function getDataCalendar()
 {
-
     try {
-
         $client = getClient();
         $service = new Google_Service_Calendar($client);
         // Print the next 10 events on the user's calendar.
@@ -88,44 +81,47 @@ function getDataCalendar()
         return $events;
 
     } catch (Exception $e) {
-        return "Error" . $e->getMessage();
+        return "Error: " . $e->getMessage();
     }
 }
 
 function addEventCalendar($datos)
 {
-    $client = getClient("save");
-    $service = new Google_Service_Calendar($client);
-    $event = new Google_Service_Calendar_Event(array(
-        'summary' => 'Google I/O 2015',
-        'location' => '800 Howard St., San Francisco, CA 94103',
-        'description' => $datos['descripcion'],
-        'start' => array(
-            'dateTime' => $datos["fechainicio"], //2015-05-28T09:00:00-07:00'
-            'timeZone' => 'America/Los_Angeles',
-        ),
-        'end' => array(
-            'dateTime' => $datos["fechafin"],
-            'timeZone' => 'America/Los_Angeles',
-        ),
-        'recurrence' => array(
-            'RRULE:FREQ=DAILY;COUNT=1',
-        ),
-        'attendees' => array(
-            array('email' => 'lpage@example.com'),
-            array('email' => 'sbrin@example.com'),
-        ),
-        'reminders' => array(
-            'useDefault' => false,
-            'overrides' => array(
-                array('method' => 'email', 'minutes' => 24 * 60),
-                array('method' => 'popup', 'minutes' => 10),
+    try {
+        $client = getClient("save");
+        $service = new Google_Service_Calendar($client);
+        $event = new Google_Service_Calendar_Event(array(
+            'summary' => $datos["titulo"],
+            'location' => '800 Howard St., San Francisco, CA 94103',
+            'description' => $datos['descripcion'],
+            'start' => array(
+                'dateTime' => $datos["fechainicio"],
+                'timeZone' => 'America/Los_Angeles',
             ),
-        ),
-    ));
+            'end' => array(
+                'dateTime' => $datos["fechafin"],
+                'timeZone' => 'America/Los_Angeles',
+            ),
+            'recurrence' => array(
+                'RRULE:FREQ=DAILY;COUNT=1',
+            ),
+            'attendees' => array(
+                array('email' => 'lpage@example.com'),
+                array('email' => 'sbrin@example.com'),
+            ),
+            'reminders' => array(
+                'useDefault' => false,
+                'overrides' => array(
+                    array('method' => 'email', 'minutes' => 24 * 60),
+                    array('method' => 'popup', 'minutes' => 10),
+                ),
+            ),
+        ));
 
-    $calendarId = 'primary';
-    $event = $service->events->insert($calendarId, $event);
-    return $event->htmlLin;
-
+        $calendarId = 'primary';
+        $event = $service->events->insert($calendarId, $event);
+        return $event->htmlLin;
+    } catch (Exception $e) {
+        return "Error: " . $e->getMessage();
+    }
 }
