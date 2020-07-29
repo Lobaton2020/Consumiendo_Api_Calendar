@@ -7,7 +7,7 @@
 
     <div class="form-group">
       <label for="exampleInputPassword1">Token</label>
-      <input type="text" name="token" value="<?php echo isset($_GET['code']) ? $_GET['code'] : '' ?>" class="form-control" id="exampleInputPassword1" placeholder="Pon aqui el token">
+      <input type="text" name="token" value="<?php echo isset($_GET['code_key']) ? $_GET['code_key'] : '' ?>" class="form-control" id="exampleInputPassword1" placeholder="Pon aqui el token">
     </div>
 
     <button type="submit" class="btn btn-primary btn-block btn-lg">Enviar Token</button>
