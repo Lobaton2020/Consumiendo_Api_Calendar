@@ -43,15 +43,15 @@ class AgendController
     public function save()
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $fechainicio = $_POST["fechainicio"] . 'T' . $_POST["horainicio"] . '-07:000Z';
-            $fechafin = $_POST["fechafin"] . 'T' . $_POST["horafin"] . '-07:000Z';
+            $fechainicio = $_POST["fechainicio"] . 'T' . $_POST["horainicio"] . ':00-05:000Z';
+            $fechafin = $_POST["fechafin"] . 'T' . $_POST["horafin"] . ':00-05:000Z';
             $datos = [
                 'titulo' => $_POST["titulo"],
                 'description' => $_POST["descripcion"],
                 'fechainicio' => $fechainicio,
                 'fechafin' => $fechafin,
             ];
-            // exit(var_dump($datos));
+            exit(var_dump($datos));
             $url = $this->model->save($datos);
             if (filter_var($url, FILTER_VALIDATE_URL)) {
                 $_SESSION["url"] = "Evento agrado exitosamente! <a href='{$url}'>Ver Anotacion</a>";
