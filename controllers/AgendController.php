@@ -43,8 +43,8 @@ class AgendController
     public function save()
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $fechainicio = $_POST["fechainicio"] . 'T' . $_POST["horainicio"] . '-05:00';
-            $fechafin = $_POST["fechafin"] . 'T' . $_POST["horafin"] . '-05:00';
+            $fechainicio = $_POST["fechainicio"] . 'T' . $_POST["horainicio"] . '-07:000Z';
+            $fechafin = $_POST["fechafin"] . 'T' . $_POST["horafin"] . '-07:000Z';
             $datos = [
                 'titulo' => $_POST["titulo"],
                 'description' => $_POST["descripcion"],

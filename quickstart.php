@@ -17,10 +17,6 @@ function getClient($type = "get")
     $client = new Google_Client();
     $client->setApplicationName('Google Calendar API PHP Quickstart');
     $client->setScopes(Google_Service_Calendar::CALENDAR);
-    // if ($type == "get") {
-    //     $client->setScopes(Google_Service_Calendar::CALENDAR_READONLY);
-    // } else {
-    // }
     $client->setAuthConfig(__DIR__ . '/credentials.json');
     $client->setAccessType('offline');
     $client->setPrompt('select_account consent');
