@@ -2,8 +2,12 @@
 <div class="container">
   <h2 class="text-center">Crear evento</h2>
   <form method="POST">
-    <?php showMessage("url", "success")?>
+    <?php showMessage("ok", "success")?>
     <?php showMessage("error", "danger")?>
+    <?php if (isset($_SESSION["url"])) {
+    echo $_SESSION["url"];
+    unset($_SESSION["url"]);
+}?>
       <input type="hidden" name="c" value="agend" >
       <input type="hidden" name="m" value="save" >
 

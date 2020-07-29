@@ -53,7 +53,8 @@ class AgendController
             // exit(var_dump($datos));
             $url = $this->model->save($datos);
             if (filter_var($url, FILTER_VALIDATE_URL)) {
-                $_SESSION["url"] = "Evento agregado exitosamente! <a href='{$url}'>Ver Anotacion</a>";
+                $_SESSION["ok"] = "Evento agregado exitosamente!";
+                $_SESSION["url"] = "<a href='{$url}'>Ver Anotacion</a>";
             } else {
                 $_SESSION["error"] = $url;
             }
