@@ -47,10 +47,10 @@ function getClient($type = "get")
             $accessToken = $client->fetchAccessTokenWithAuthCode($authCode);
             $client->setAccessToken($accessToken);
 
+            return ["url" => $authUrl];
             if (array_key_exists('error', $accessToken)) {
                 throw new Exception(join(', ', $accessToken));
             }
-            return ["url" => $authUrl];
         }
         // Save the token to a file.
         if (!file_exists(dirname($tokenPath))) {
