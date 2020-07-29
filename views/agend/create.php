@@ -13,11 +13,11 @@
 
     <div class="form-group">
       <label for="exampleInputPassword1">Titulo</label>
-      <input type="text" name="titulo" value="Llamar a mama" class="form-control" id="exampleInputPassword1" placeholder="Titulo">
+      <input type="text" name="titulo" class="form-control" id="exampleInputPassword1" placeholder="Titulo">
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">Descripcion</label>
-      <textarea name="descripcion" id="exampleInputPassword1" class="form-control" cols="30" rows="5"  placeholder="Descripcion">Saludarla y deseraler una feli navidad jojojo</textarea>
+      <textarea name="descripcion" id="exampleInputPassword1" class="form-control" cols="30" rows="5"  placeholder="Descripcion"></textarea>
     </div>
   <div class="form-row">
     <div class="col-md-6">
