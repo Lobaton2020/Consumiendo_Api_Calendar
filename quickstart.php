@@ -87,23 +87,20 @@ function addEventCalendar($datos)
         $service = new Google_Service_Calendar($client);
         $event = new Google_Service_Calendar_Event(array(
             'summary' => $datos["titulo"],
-            'location' => '800 Howard St., San Francisco, CA 94103',
+            'location' => 'Bogota - Colombia',
             'description' => $datos['descripcion'],
             'start' => array(
                 'dateTime' => $datos["fechainicio"],
-                'timeZone' => 'America/Los_Angeles',
+                'timeZone' => 'America/Bogota',
             ),
             'end' => array(
                 'dateTime' => $datos["fechafin"],
-                'timeZone' => 'America/Los_Angeles',
+                'timeZone' => 'America/Bogota',
             ),
             'recurrence' => array(
                 'RRULE:FREQ=DAILY;COUNT=1',
             ),
-            'attendees' => array(
-                array('email' => 'lpage@example.com'),
-                array('email' => 'sbrin@example.com'),
-            ),
+            'attendees' => $datos['emails'],
             'reminders' => array(
                 'useDefault' => false,
                 'overrides' => array(

@@ -18,7 +18,9 @@ class AgendController
 
     public function getToken()
     {
-        return view("agend/getToken");
+        setCookie("tokenCalendarGoogle", $_GET["code_key"], time() + 60 * 60 * 60);
+        return redirect("https://text-google-calendar.herokuapp.com/");
+        // return view("agend/getToken");
     }
 
     public function create()
@@ -42,15 +44,25 @@ class AgendController
     public function save()
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $emails = isset($_POST["emails"]) ? $_POST["emails"] : array();
+            if (!empty($emails)) {
+                $data = array();
+                foreach ($emails as $email) {
+                    $email = array("email" => $email);
+                    array_push($data, $email);
+                }
+                $emails = $data;
+            }
             $fechainicio = $_POST["fechainicio"] . 'T' . $_POST["horainicio"] . ':00-05:00';
             $fechafin = $_POST["fechafin"] . 'T' . $_POST["horafin"] . ':00-05:00';
             $datos = [
                 'titulo' => $_POST["titulo"],
                 'descripcion' => $_POST["descripcion"],
+                'emails' => $emails,
                 'fechainicio' => $fechainicio,
                 'fechafin' => $fechafin,
             ];
-            // exit(var_dump($datos));
+            exit(var_dump($datos));
             $url = $this->model->save($datos);
             if (filter_var($url, FILTER_VALIDATE_URL)) {
                 $_SESSION["ok"] = "Evento agregado exitosamente!";
