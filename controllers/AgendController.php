@@ -62,7 +62,7 @@ class AgendController
                 'fechainicio' => $fechainicio,
                 'fechafin' => $fechafin,
             ];
-            exit(var_dump($datos));
+            // exit(var_dump($datos));
             $url = $this->model->save($datos);
             if (filter_var($url, FILTER_VALIDATE_URL)) {
                 $_SESSION["ok"] = "Evento agregado exitosamente!";
